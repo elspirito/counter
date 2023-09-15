@@ -1,0 +1,34 @@
+import React from 'react';
+import styled from "styled-components";
+
+type ButtonPropsType = {
+    name: string
+    onClick: () => void
+}
+
+export const Button: React.FC<ButtonPropsType> = (props) => {
+    return (
+        <StyledButton onClick={props.onClick}>
+            {props.name}
+        </StyledButton>
+    );
+};
+
+const StyledButton = styled.button`
+  border: 0;
+  background: hsl(220, 8%, 32%);
+  padding: 8px 24px;
+  border-radius: 8px;
+  color: #eee;
+  font-size: 16px;
+  width: 100%;
+  cursor: pointer;
+
+  &:hover {
+    background: hsl(220, 40%, 48%);
+  }
+  
+  &:active {
+    background: hsl(220, 40%, 40%);
+  }
+`
