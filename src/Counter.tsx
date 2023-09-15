@@ -1,31 +1,62 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import styled from "styled-components";
 import {Button} from "./components/button/Button";
-import {Screen} from "./components/screen/Screen";
-import {CounterSettings} from "./CounterSettings";
+import {Display} from "./components/screen/Display";
+import {Input} from "./components/input/Input";
 
 export const Counter: React.FC = () => {
     const minCount = 0;
     const maxCount = 5;
 
     const [counter, setCounter] = useState(minCount)
-    const [error, setError] = useState<string | null>(null)
+    const [error, setError] = useState(null)
+    const [minValue, setMinValue] = useState(0)
+    const [maxValue, setMaxValue] = useState(1)
 
     const onClickIncrementHandler = () => (counter < maxCount) && setCounter(prevCount => prevCount + 1)
     const onClickResetHandler = () => setCounter(minCount)
+    const onChangeMinValueHandler = (e: ChangeEvent<HTMLInputElement>) => setMinValue(Number(e.currentTarget.value))
+    const onChangeMaxValueHandler = (e: ChangeEvent<HTMLInputElement>) => setMaxValue(Number(e.currentTarget.value))
 
     return (
         <StyledCounter>
 
             <CounterBody>
-                <Screen className={counter === maxCount ? 'error' : ''} counter={counter}/>
+                <Display
+                    className={counter === maxCount ? 'error' : ''}
+                    counter={counter}
+                />
                 <Controls>
-                    <Button disabled={counter === maxCount} name={'Increment'} onClick={onClickIncrementHandler}/>
-                    <Button disabled={counter === minCount} name={'Reset'} onClick={onClickResetHandler}/>
+                    <Button
+                        disabled={counter === maxCount}
+                        name={'Increment'}
+                        onClick={onClickIncrementHandler}/>
+                    <Button
+                        disabled={counter === minCount}
+                        name={'Reset'}
+                        onClick={onClickResetHandler}/>
                 </Controls>
             </CounterBody>
 
-            <CounterSettings/>
+            <CounterSettings>
+                <small>Settings</small>
+                <SettingsInputs>
+                    <Input
+                        value={minValue}
+                        className={minValue < 0 || maxValue <= minValue ? 'error' : ''}
+                        label={'Min value'}
+                        type={'number'}
+                        onChange={onChangeMinValueHandler}/>
+                    <Input
+                        value={maxValue}
+                        className={maxValue <= minValue ? 'error' : ''}
+                        label={'Max value'}
+                        type={'number'}
+                        onChange={onChangeMaxValueHandler}/>
+                </SettingsInputs>
+                <Button name={'Set'} onClick={() => {
+                }}/>
+            </CounterSettings>
 
         </StyledCounter>
     );
@@ -51,8 +82,38 @@ const CounterBody = styled.div`
   width: 100%;
 `
 
+const CounterSettings = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  background: #fff;
+  padding: 24px;
+  width: 100%;
+  border-radius: 16px;
+  box-shadow: 0 16px 64px hsla(0, 0%, 0%, .1);
+
+  small {
+    color: hsla(0, 0%, 0%, .6);
+  }
+
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding: 0 4px;
+  }
+`
+
 const Controls = styled.div`
   display: flex;
   gap: 8px;
   width: 100%;
+`
+
+const SettingsInputs = styled.div`
+  display: flex;
+  gap: 8px;
 `

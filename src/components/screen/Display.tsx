@@ -7,7 +7,7 @@ type ScreenPropsType = {
 }
 
 
-export const Screen: React.FC<ScreenPropsType> = (props) => {
+export const Display: React.FC<ScreenPropsType> = (props) => {
     return (
         <StyledScreen className={props.className}>
             <CounterNumber>{props.counter}</CounterNumber>
@@ -30,6 +30,7 @@ const StyledScreen = styled.div`
   &.error {
     color: hsla(340, 96%, 64%, 1);
     background: hsla(340, 96%, 64%, .1);
+    outline: 2px solid hsla(340, 96%, 64%, 1);
   }
 `
 const CounterNumber = styled.h1`
