@@ -24,7 +24,7 @@ const StyledScreen = styled.div`
   align-items: center;
   padding: 40px;
   background: #eee;
-  border-radius: 16px;
+  border-radius: 8px;
   width: 100%;
 
   &.error {

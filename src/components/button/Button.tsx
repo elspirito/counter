@@ -4,7 +4,7 @@ import styled from "styled-components";
 type ButtonPropsType = {
     name: string
     onClick: () => void
-    disabled: boolean
+    disabled?: boolean
 }
 
 export const Button: React.FC<ButtonPropsType> = (props) => {
@@ -17,8 +17,8 @@ export const Button: React.FC<ButtonPropsType> = (props) => {
 
 const StyledButton = styled.button`
   border: 0;
-  background: hsl(220, 8%, 32%);
-  padding: 8px 24px;
+  background: hsla(220, 8%, 32%, 1);
+  height: 48px;
   border-radius: 8px;
   color: #eee;
   font-size: 16px;
@@ -26,16 +26,16 @@ const StyledButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    background: hsl(220, 40%, 48%);
+    background: hsl(220, 40%, 48%, 1);
   }
   
   &:active {
-    background: hsl(220, 40%, 40%);
+    background: hsl(220, 40%, 40%, 1);
   }
   
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
-    background: hsl(220, 8%, 32%);
+    background: hsl(220, 8%, 32%, 1);
   }
 `
