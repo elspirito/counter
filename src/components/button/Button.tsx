@@ -4,11 +4,12 @@ import styled from "styled-components";
 type ButtonPropsType = {
     name: string
     onClick: () => void
+    disabled: boolean
 }
 
 export const Button: React.FC<ButtonPropsType> = (props) => {
     return (
-        <StyledButton onClick={props.onClick}>
+        <StyledButton disabled={props.disabled} onClick={props.onClick}>
             {props.name}
         </StyledButton>
     );
@@ -30,5 +31,11 @@ const StyledButton = styled.button`
   
   &:active {
     background: hsl(220, 40%, 40%);
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background: hsl(220, 8%, 32%);
   }
 `

@@ -5,18 +5,20 @@ import {Screen} from "./components/screen/Screen";
 
 export const Counter: React.FC = () => {
     const minCount = 0;
-    const maxCount= 5;
+    const maxCount = 5;
 
-    let [counter, setCounter] = useState(0)
-    const onClickIncrementHandler = () => counter < maxCount && setCounter(counter + 1)
-    const onClickResetHandler = () => setCounter(0)
+    const [counter, setCounter] = useState(minCount)
+    const [error, setError] = useState<string | null>(null)
+
+    const onClickIncrementHandler = () => (counter < maxCount) && setCounter(prevCount => prevCount + 1)
+    const onClickResetHandler = () => setCounter(minCount)
 
     return (
         <StyledCounter>
-            <Screen counter={counter}/>
+            <Screen className={counter === maxCount ? 'error' : ''} counter={counter}/>
             <Controls>
-                <Button name={'Increment'} onClick={onClickIncrementHandler}/>
-                <Button name={'reset'} onClick={onClickResetHandler}/>
+                <Button disabled={counter === maxCount} name={'Increment'} onClick={onClickIncrementHandler}/>
+                <Button disabled={counter === minCount} name={'reset'} onClick={onClickResetHandler}/>
             </Controls>
         </StyledCounter>
     );

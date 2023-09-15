@@ -3,14 +3,18 @@ import styled from "styled-components";
 
 type ScreenPropsType = {
     counter: number
+    className?: string
 }
+
 
 export const Screen: React.FC<ScreenPropsType> = (props) => {
     return (
-        <StyledScreen>
+        <StyledScreen className={props.className}>
             <CounterNumber>{props.counter}</CounterNumber>
         </StyledScreen>
+
     );
+
 };
 
 const StyledScreen = styled.div`
@@ -22,6 +26,11 @@ const StyledScreen = styled.div`
   background: #eee;
   border-radius: 16px;
   width: 100%;
+
+  &.error {
+    color: hsla(340, 96%, 64%, 1);
+    background: hsla(340, 96%, 64%, .1);
+  }
 `
 const CounterNumber = styled.h1`
   font-size: 40px;
