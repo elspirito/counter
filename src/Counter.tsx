@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import styled from "styled-components";
 import {Button} from "./components/button/Button";
-import {Display} from "./components/screen/Display";
+import {Display} from "./components/display/Display";
 import {Input} from "./components/input/Input";
 
 export const Counter: React.FC = () => {
