@@ -1,38 +1,48 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import styled from "styled-components";
 import {Button} from "./components/button/Button";
 import {Display} from "./components/screen/Display";
 import {Input} from "./components/input/Input";
 
 export const Counter: React.FC = () => {
-    const minCount = 0;
-    const maxCount = 5;
 
-    const [counter, setCounter] = useState(minCount)
-    const [error, setError] = useState(null)
     const [minValue, setMinValue] = useState(0)
     const [maxValue, setMaxValue] = useState(1)
+    const [counter, setCounter] = useState(minValue)
+    const [error, setError] = useState(null)
 
-    const onClickIncrementHandler = () => (counter < maxCount) && setCounter(prevCount => prevCount + 1)
-    const onClickResetHandler = () => setCounter(minCount)
+
+    const onClickIncrementHandler = () => (counter < maxValue) && setCounter(prevCount => prevCount + 1)
+    const onClickResetHandler = () => setCounter(minValue)
     const onChangeMinValueHandler = (e: ChangeEvent<HTMLInputElement>) => setMinValue(Number(e.currentTarget.value))
     const onChangeMaxValueHandler = (e: ChangeEvent<HTMLInputElement>) => setMaxValue(Number(e.currentTarget.value))
+    const onClickSetHandler = () => {
+        localStorage.setItem("minValue", JSON.stringify(minValue))
+        localStorage.setItem("maxValue", JSON.stringify(maxValue))
+    }
+
+    useEffect(() => {
+        let localStoreMinValue = localStorage.getItem('minValue')
+        localStoreMinValue && setMinValue(JSON.parse(localStoreMinValue))
+        let localStoreMaxValue = localStorage.getItem('maxValue')
+        localStoreMaxValue && setMaxValue(JSON.parse(localStoreMaxValue))
+    }, [])
 
     return (
         <StyledCounter>
 
             <CounterBody>
                 <Display
-                    className={counter === maxCount ? 'error' : ''}
+                    className={counter === maxValue ? 'error' : ''}
                     counter={counter}
                 />
                 <Controls>
                     <Button
-                        disabled={counter === maxCount}
+                        disabled={counter === maxValue}
                         name={'Increment'}
                         onClick={onClickIncrementHandler}/>
                     <Button
-                        disabled={counter === minCount}
+                        disabled={counter === minValue}
                         name={'Reset'}
                         onClick={onClickResetHandler}/>
                 </Controls>
@@ -49,13 +59,12 @@ export const Counter: React.FC = () => {
                         onChange={onChangeMinValueHandler}/>
                     <Input
                         value={maxValue}
-                        className={maxValue <= minValue ? 'error' : ''}
+                        className={minValue < 0 || maxValue <= minValue ? 'error' : ''}
                         label={'Max value'}
                         type={'number'}
                         onChange={onChangeMaxValueHandler}/>
                 </SettingsInputs>
-                <Button name={'Set'} onClick={() => {
-                }}/>
+                <Button name={'Set'} onClick={onClickSetHandler}/>
             </CounterSettings>
 
         </StyledCounter>

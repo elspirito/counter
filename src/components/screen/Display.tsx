@@ -10,9 +10,9 @@ type ScreenPropsType = {
 export const Display: React.FC<ScreenPropsType> = (props) => {
     return (
         <StyledScreen className={props.className}>
-            <CounterNumber>{props.counter}</CounterNumber>
+            {/* XXX ? <TextCounter>{props.counter}</TextCounter> : <TextMessage>{props.text}</TextMessage>*/}
+            {<TextCounter>{props.counter}</TextCounter>}
         </StyledScreen>
-
     );
 
 };
@@ -33,7 +33,7 @@ const StyledScreen = styled.div`
     outline: 2px solid hsla(340, 96%, 64%, 1);
   }
 `
-const CounterNumber = styled.h1`
-  font-size: 40px;
+const TextCounter = styled.h1`
+  font-size: 32px;
   font-weight: bold;
 `
