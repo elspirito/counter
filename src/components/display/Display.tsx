@@ -10,7 +10,6 @@ type ScreenPropsType = {
 export const Display: React.FC<ScreenPropsType> = (props) => {
     return (
         <StyledScreen className={props.className}>
-            {/* XXX ? <TextCounter>{props.counter}</TextCounter> : <TextMessage>{props.text}</TextMessage>*/}
             {<TextCounter>{props.counter}</TextCounter>}
         </StyledScreen>
     );
