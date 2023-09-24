@@ -8,47 +8,54 @@ export const Counter: React.FC = () => {
 
     const [minValue, setMinValue] = useState(0)
     const [maxValue, setMaxValue] = useState(1)
-    const [counter, setCounter] = useState(minValue)
+    const [counterValue, setCounterValue] = useState(minValue)
+    const [error, setError] = useState<string | null>(null)
 
-    const onClickIncrementHandler = () => (counter < maxValue) && setCounter(prevCount => prevCount + 1)
-    const onClickResetHandler = () => setCounter(minValue)
-    const onChangeMinValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const onClickIncrementHandler = () => (counterValue < maxValue) && setCounterValue(prevCount => prevCount + 1)
+    const onClickResetHandler = () => setCounterValue(minValue)
+    const onChangeMinValueInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setMinValue(Number(e.currentTarget.value))
     }
-    const onChangeMaxValueHandler = (e: ChangeEvent<HTMLInputElement>) => setMaxValue(Number(e.currentTarget.value))
-    const onClickSetHandler = () => {
+    const onChangeMaxValueInputHandler = (e: ChangeEvent<HTMLInputElement>) => setMaxValue(Number(e.currentTarget.value))
+    const onClickSetSettingsHandler = () => {
         localStorage.setItem("minValue", JSON.stringify(minValue))
         localStorage.setItem("maxValue", JSON.stringify(maxValue))
-        setCounter(minValue)
+        setCounterValue(minValue)
     }
+
 
     useEffect(() => {
         let localStoreMinValue = localStorage.getItem('minValue')
         if (localStoreMinValue) {
             setMinValue(JSON.parse(localStoreMinValue))
-            setCounter(JSON.parse(localStoreMinValue))
+            setCounterValue(JSON.parse(localStoreMinValue))
         }
         let localStoreMaxValue = localStorage.getItem('maxValue')
         localStoreMaxValue && setMaxValue(JSON.parse(localStoreMaxValue))
     }, [])
+
+    useEffect(() => {
+        minValue >= maxValue ? setError('Wrong values') : setError(null)
+    }, [minValue, maxValue, error]);
 
     return (
         <StyledCounter>
 
             <CounterBody>
                 <Display
-                    className={counter === maxValue ? 'error' : ''}
-                    counter={counter}
+                    className={counterValue === maxValue ? 'success' : '' || minValue >= maxValue ? 'error' : ''}
+                    counterValue={counterValue}
+                    error={error}
                 />
                 <Controls>
                     <Button
                         icon={'add_circle'}
-                        disabled={counter === maxValue}
+                        disabled={counterValue === maxValue || minValue >= maxValue}
                         name={'Increment'}
                         onClick={onClickIncrementHandler}/>
                     <Button
                         icon={'restart_alt'}
-                        disabled={counter === minValue}
+                        disabled={counterValue === minValue || minValue >= maxValue}
                         name={'Reset'}
                         onClick={onClickResetHandler}/>
                 </Controls>
@@ -62,15 +69,16 @@ export const Counter: React.FC = () => {
                         className={minValue < 0 || maxValue <= minValue ? 'error' : ''}
                         label={'Min value'}
                         type={'number'}
-                        onChange={onChangeMinValueHandler}/>
+                        onChange={onChangeMinValueInputHandler}/>
                     <Input
                         value={maxValue}
                         className={minValue < 0 || maxValue <= minValue ? 'error' : ''}
                         label={'Max value'}
                         type={'number'}
-                        onChange={onChangeMaxValueHandler}/>
+                        onChange={onChangeMaxValueInputHandler}/>
                 </SettingsInputs>
-                <Button icon={'check'} name={'Set'} onClick={onClickSetHandler}/>
+                <Button disabled={minValue === 0 && maxValue === 1 || minValue >= maxValue} icon={'check'}
+                        name={'Set settings'} onClick={onClickSetSettingsHandler}/>
             </CounterSettings>
 
         </StyledCounter>
