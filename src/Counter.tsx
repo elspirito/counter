@@ -23,7 +23,6 @@ export const Counter: React.FC = () => {
         setCounterValue(minValue)
     }
 
-
     useEffect(() => {
         let localStoreMinValue = localStorage.getItem('minValue')
         if (localStoreMinValue) {
