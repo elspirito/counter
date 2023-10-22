@@ -3,81 +3,93 @@ import styled from "styled-components";
 import {Button} from "./components/button/Button";
 import {Display} from "./components/display/Display";
 import {Input} from "./components/input/Input";
+import {useDispatch, useSelector} from "react-redux";
+import {CounterRootStateType} from "./store/store";
+import {StateType} from "./types/counter";
+import {
+    changeMaxValueAction,
+    changeMinValueAction, errorAction,
+    incrementAction,
+    resetAction
+} from "./store/action-creators/counterActions";
 
 export const Counter: React.FC = () => {
 
-    const [minValue, setMinValue] = useState(0)
-    const [maxValue, setMaxValue] = useState(1)
-    const [counterValue, setCounterValue] = useState(minValue)
+    const state = useSelector<CounterRootStateType, StateType>(state => state.counterReducer)
+    console.log(state)
+    const dispatch = useDispatch()
+
     const [error, setError] = useState<string | null>(null)
 
-    const onClickIncrementHandler = () => (counterValue < maxValue) && setCounterValue(prevCount => prevCount + 1)
-    const onClickResetHandler = () => setCounterValue(minValue)
-    const onChangeMinValueInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setMinValue(Number(e.currentTarget.value))
+    const incrementHandler = () => {
+        dispatch(incrementAction(1))
     }
-    const onChangeMaxValueInputHandler = (e: ChangeEvent<HTMLInputElement>) => setMaxValue(Number(e.currentTarget.value))
-    const onClickSetSettingsHandler = () => {
-        localStorage.setItem("minValue", JSON.stringify(minValue))
-        localStorage.setItem("maxValue", JSON.stringify(maxValue))
-        setCounterValue(minValue)
+    const resetHandler = () => {
+        dispatch(resetAction())
+    }
+    const changeMinValueHandler = (e: ChangeEvent<HTMLInputElement>) => dispatch(changeMinValueAction(Number(e.currentTarget.value)))
+    const changeMaxValueHandler = (e: ChangeEvent<HTMLInputElement>) => dispatch(changeMaxValueAction(Number(e.currentTarget.value)))
+    const setSettingsHandler = () => {
+        // localStorage.setItem("minValue", JSON.stringify(minValue))
+        // localStorage.setItem("maxValue", JSON.stringify(maxValue))
+        // setCounterValue(minValue)
     }
 
-    useEffect(() => {
-        let localStoreMinValue = localStorage.getItem('minValue')
-        if (localStoreMinValue) {
-            setMinValue(JSON.parse(localStoreMinValue))
-            setCounterValue(JSON.parse(localStoreMinValue))
-        }
-        let localStoreMaxValue = localStorage.getItem('maxValue')
-        localStoreMaxValue && setMaxValue(JSON.parse(localStoreMaxValue))
-    }, [])
+    // useEffect(() => {
+    //     let localStoreMinValue = localStorage.getItem('minValue')
+    //     if (localStoreMinValue) {
+    //         setMinValue(JSON.parse(localStoreMinValue))
+    //         setCounterValue(JSON.parse(localStoreMinValue))
+    //     }
+    //     let localStoreMaxValue = localStorage.getItem('maxValue')
+    //     localStoreMaxValue && setMaxValue(JSON.parse(localStoreMaxValue))
+    // }, [])
 
     useEffect(() => {
-        minValue >= maxValue ? setError('Wrong values') : setError(null)
-    }, [minValue, maxValue, error]);
+        state.minValue >= state.maxValue
+            ? dispatch(errorAction('Wrong values'))
+            : dispatch(errorAction(null))
+    }, [state.minValue, state.maxValue, state.error]);
 
     return (
         <StyledCounter>
 
             <CounterBody>
                 <Display
-                    className={counterValue === maxValue ? 'success' : '' || minValue >= maxValue ? 'error' : ''}
-                    counterValue={counterValue}
-                    error={error}
+                    className={state.counterValue === state.maxValue ? 'success' : '' || state.minValue >= state.maxValue ? 'error' : ''}
+                    counterValue={state.counterValue}
+                    error={state.error}
                 />
                 <Controls>
                     <Button
                         icon={'add_circle'}
-                        disabled={counterValue === maxValue || minValue >= maxValue}
+                        disabled={state.counterValue === state.maxValue || state.minValue >= state.maxValue}
                         name={'Increment'}
-                        onClick={onClickIncrementHandler}/>
+                        onClick={incrementHandler}/>
                     <Button
                         icon={'restart_alt'}
-                        disabled={counterValue === minValue || minValue >= maxValue}
+                        disabled={state.counterValue === state.minValue || state.minValue >= state.maxValue}
                         name={'Reset'}
-                        onClick={onClickResetHandler}/>
+                        onClick={resetHandler}/>
                 </Controls>
             </CounterBody>
 
             <CounterSettings>
                 <small>Settings</small>
                 <SettingsInputs>
-                    <Input
-                        value={minValue}
-                        className={minValue < 0 || maxValue <= minValue ? 'error' : ''}
-                        label={'Min value'}
-                        type={'number'}
-                        onChange={onChangeMinValueInputHandler}/>
-                    <Input
-                        value={maxValue}
-                        className={minValue < 0 || maxValue <= minValue ? 'error' : ''}
-                        label={'Max value'}
-                        type={'number'}
-                        onChange={onChangeMaxValueInputHandler}/>
+                    <Input label={'Min value'}
+                        value={state.minValue}
+                        className={state.minValue < 0 || state.maxValue <= state.minValue ? 'error' : ''}
+                        onChange={changeMinValueHandler}/>
+                    <Input label={'Max value'}
+                        value={state.maxValue}
+                        className={state.minValue < 0 || state.maxValue <= state.minValue ? 'error' : ''}
+                        onChange={changeMaxValueHandler}/>
                 </SettingsInputs>
-                <Button disabled={minValue === 0 && maxValue === 1 || minValue >= maxValue} icon={'check'}
-                        name={'Set settings'} onClick={onClickSetSettingsHandler}/>
+                <Button disabled={state.minValue === 0 && state.maxValue === 1 || state.minValue >= state.maxValue}
+                        icon={'check'}
+                        name={'Set settings'}
+                        onClick={setSettingsHandler}/>
             </CounterSettings>
 
         </StyledCounter>

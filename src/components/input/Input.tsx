@@ -4,7 +4,6 @@ import {S} from './Input_Styles'
 type InputPropsType = {
     value: number
     label: string
-    type: string
     onChange: (e: ChangeEvent<HTMLInputElement>) => void
     className?: string
 }
@@ -13,7 +12,6 @@ export const Input: React.FC<InputPropsType> = (
     {
         value,
         label,
-        type,
         onChange,
         className
     }
@@ -23,7 +21,7 @@ export const Input: React.FC<InputPropsType> = (
             <label>{label}</label>
             <S.Input
                 value={value}
-                type={type}
+                type={'number'}
                 onChange={onChange}
                 className={className}
                 />
