@@ -1,30 +1,30 @@
 import {CounterActionsTypes} from "../../types/counter";
 
 
-export const incrementAction = (step: number) => {
+export const incrementAC = (step: number) => {
     return {
         type: CounterActionsTypes.INCREMENT,
         payload: step
     }
 };
-export const resetAction = () => {
+export const resetAC = () => {
     return {
         type: CounterActionsTypes.RESET
     }
 }
-export const changeMinValueAction = (minValue: number) => {
+export const changeMinValueAC = (minValue: number) => {
     return {
         type: CounterActionsTypes.CHANGE_MIN_VALUE,
         payload: minValue
     }
 }
-export const changeMaxValueAction = (maxValue: number) => {
+export const changeMaxValueAC = (maxValue: number) => {
     return {
         type: CounterActionsTypes.CHANGE_MAX_VALUE,
         payload: maxValue
     }
 }
-export const errorAction = (error: string | null) => {
+export const errorAC = (error: string | null) => {
     return {
         type: CounterActionsTypes.ERROR,
         payload: error

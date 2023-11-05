@@ -4,31 +4,31 @@ import {Button} from "./components/button/Button";
 import {Display} from "./components/display/Display";
 import {Input} from "./components/input/Input";
 import {useDispatch, useSelector} from "react-redux";
-import {CounterRootStateType} from "./store/store";
+import {RootStateType} from "./store";
 import {StateType} from "./types/counter";
 import {
-    changeMaxValueAction,
-    changeMinValueAction, errorAction,
-    incrementAction,
-    resetAction
+    changeMaxValueAC,
+    changeMinValueAC, errorAC,
+    incrementAC,
+    resetAC
 } from "./store/action-creators/counterActions";
 
 export const Counter: React.FC = () => {
 
-    const state = useSelector<CounterRootStateType, StateType>(state => state.counterReducer)
+    const state = useSelector<RootStateType, StateType>(state => state.counterReducer)
     console.log(state)
     const dispatch = useDispatch()
 
     const [error, setError] = useState<string | null>(null)
 
     const incrementHandler = () => {
-        dispatch(incrementAction(1))
+        dispatch(incrementAC(1))
     }
     const resetHandler = () => {
-        dispatch(resetAction())
+        dispatch(resetAC())
     }
-    const changeMinValueHandler = (e: ChangeEvent<HTMLInputElement>) => dispatch(changeMinValueAction(Number(e.currentTarget.value)))
-    const changeMaxValueHandler = (e: ChangeEvent<HTMLInputElement>) => dispatch(changeMaxValueAction(Number(e.currentTarget.value)))
+    const changeMinValueHandler = (e: ChangeEvent<HTMLInputElement>) => dispatch(changeMinValueAC(Number(e.currentTarget.value)))
+    const changeMaxValueHandler = (e: ChangeEvent<HTMLInputElement>) => dispatch(changeMaxValueAC(Number(e.currentTarget.value)))
     const setSettingsHandler = () => {
         // localStorage.setItem("minValue", JSON.stringify(minValue))
         // localStorage.setItem("maxValue", JSON.stringify(maxValue))
@@ -47,8 +47,8 @@ export const Counter: React.FC = () => {
 
     useEffect(() => {
         state.minValue >= state.maxValue
-            ? dispatch(errorAction('Wrong values'))
-            : dispatch(errorAction(null))
+            ? dispatch(errorAC('Wrong values'))
+            : dispatch(errorAC(null))
     }, [state.minValue, state.maxValue, state.error]);
 
     return (
