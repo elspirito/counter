@@ -1,6 +1,6 @@
-import {CounterActions, CounterActionsTypes, StateType} from "../types/counter";
+import {CounterActions, CounterActionsTypes, CounterStateType} from "../../types/counter";
 
-const initialState: StateType = {
+const initialState: CounterStateType = {
     counterValue: 0,
     minValue: 0,
     maxValue: 1,

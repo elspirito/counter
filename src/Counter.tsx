@@ -4,20 +4,22 @@ import {Button} from "./components/button/Button";
 import {Display} from "./components/display/Display";
 import {Input} from "./components/input/Input";
 import {useDispatch, useSelector} from "react-redux";
-import {RootStateType} from "./store";
-import {StateType} from "./types/counter";
+import {AppStateType} from "./store/store";
+import {CounterStateType} from "./types/counter";
 import {
     changeMaxValueAC,
     changeMinValueAC, errorAC,
     incrementAC,
     resetAC
-} from "./store/action-creators/counterActions";
+} from "./store/actions/counterActions";
+import {useAppDispatch, useAppSelector} from "./hooks/customHooks";
+import {selectCounter} from "./store/selectors/selectCounter";
 
 export const Counter: React.FC = () => {
 
-    const state = useSelector<RootStateType, StateType>(state => state.counterReducer)
-    console.log(state)
-    const dispatch = useDispatch()
+    // console.log(state)
+    const dispatch = useAppDispatch()
+    const state = useAppSelector(selectCounter)
 
     const [error, setError] = useState<string | null>(null)
 
@@ -30,6 +32,7 @@ export const Counter: React.FC = () => {
     const changeMinValueHandler = (e: ChangeEvent<HTMLInputElement>) => dispatch(changeMinValueAC(Number(e.currentTarget.value)))
     const changeMaxValueHandler = (e: ChangeEvent<HTMLInputElement>) => dispatch(changeMaxValueAC(Number(e.currentTarget.value)))
     const setSettingsHandler = () => {
+
         // localStorage.setItem("minValue", JSON.stringify(minValue))
         // localStorage.setItem("maxValue", JSON.stringify(maxValue))
         // setCounterValue(minValue)

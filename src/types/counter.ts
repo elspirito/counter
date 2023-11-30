@@ -1,4 +1,4 @@
-export type StateType = {
+export type CounterStateType = {
     counterValue: number
     minValue: number
     maxValue: number

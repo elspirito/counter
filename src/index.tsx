@@ -4,7 +4,7 @@ import reportWebVitals from './reportWebVitals';
 import {Counter} from "./Counter";
 import {GlobalStyle} from "./styles/Global.styled";
 import {Provider} from "react-redux";
-import {store} from "./store";
+import {store} from "./store/store";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
