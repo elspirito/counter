@@ -1,10 +1,12 @@
-import {CounterActions, CounterActionsTypes, CounterStateType} from "../../types/counter";
+import {CounterActions, CounterActionsTypes, CounterReducerInitialType} from "../../types/counter";
 
-const initialState: CounterStateType = {
-    counterValue: 0,
-    minValue: 0,
-    maxValue: 1,
-    error: null
+const initialState: CounterReducerInitialType = {
+
+        counterValue: 0,
+        minValue: 0,
+        maxValue: 1,
+        error: null
+
 }
 
 export const counterReducer = (state = initialState, action: CounterActions) => {

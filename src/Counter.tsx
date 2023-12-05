@@ -1,27 +1,19 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent, FC, useEffect} from 'react';
 import styled from "styled-components";
 import {Button} from "./components/button/Button";
 import {Display} from "./components/display/Display";
 import {Input} from "./components/input/Input";
-import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "./store/store";
-import {CounterStateType} from "./types/counter";
-import {
-    changeMaxValueAC,
-    changeMinValueAC, errorAC,
-    incrementAC,
-    resetAC
-} from "./store/actions/counterActions";
+import {changeMaxValueAC, changeMinValueAC, errorAC, incrementAC, resetAC} from "./store/actions/counterActions";
 import {useAppDispatch, useAppSelector} from "./hooks/customHooks";
 import {selectCounter} from "./store/selectors/selectCounter";
+import {saveState} from "./utils/localStorage-utils";
 
-export const Counter: React.FC = () => {
+export const Counter: FC = () => {
 
-    // console.log(state)
     const dispatch = useAppDispatch()
-    const state = useAppSelector(selectCounter)
+    const counter = useAppSelector(selectCounter)
+    console.log(counter)
 
-    const [error, setError] = useState<string | null>(null)
 
     const incrementHandler = () => {
         dispatch(incrementAC(1))
@@ -32,46 +24,33 @@ export const Counter: React.FC = () => {
     const changeMinValueHandler = (e: ChangeEvent<HTMLInputElement>) => dispatch(changeMinValueAC(Number(e.currentTarget.value)))
     const changeMaxValueHandler = (e: ChangeEvent<HTMLInputElement>) => dispatch(changeMaxValueAC(Number(e.currentTarget.value)))
     const setSettingsHandler = () => {
-
-        // localStorage.setItem("minValue", JSON.stringify(minValue))
-        // localStorage.setItem("maxValue", JSON.stringify(maxValue))
-        // setCounterValue(minValue)
+        saveState(counter)
     }
 
-    // useEffect(() => {
-    //     let localStoreMinValue = localStorage.getItem('minValue')
-    //     if (localStoreMinValue) {
-    //         setMinValue(JSON.parse(localStoreMinValue))
-    //         setCounterValue(JSON.parse(localStoreMinValue))
-    //     }
-    //     let localStoreMaxValue = localStorage.getItem('maxValue')
-    //     localStoreMaxValue && setMaxValue(JSON.parse(localStoreMaxValue))
-    // }, [])
-
     useEffect(() => {
-        state.minValue >= state.maxValue
+        counter.minValue >= counter.maxValue
             ? dispatch(errorAC('Wrong values'))
             : dispatch(errorAC(null))
-    }, [state.minValue, state.maxValue, state.error]);
+    }, [counter.minValue, counter.maxValue, counter.error]);
 
     return (
         <StyledCounter>
 
             <CounterBody>
                 <Display
-                    className={state.counterValue === state.maxValue ? 'success' : '' || state.minValue >= state.maxValue ? 'error' : ''}
-                    counterValue={state.counterValue}
-                    error={state.error}
+                    className={counter.counterValue === counter.maxValue ? 'success' : '' || counter.minValue >= counter.maxValue ? 'error' : ''}
+                    counterValue={counter.counterValue}
+                    error={counter.error}
                 />
                 <Controls>
                     <Button
                         icon={'add_circle'}
-                        disabled={state.counterValue === state.maxValue || state.minValue >= state.maxValue}
+                        disabled={counter.counterValue === counter.maxValue || counter.minValue >= counter.maxValue}
                         name={'Increment'}
                         onClick={incrementHandler}/>
                     <Button
                         icon={'restart_alt'}
-                        disabled={state.counterValue === state.minValue || state.minValue >= state.maxValue}
+                        disabled={counter.counterValue === counter.minValue || counter.minValue >= counter.maxValue}
                         name={'Reset'}
                         onClick={resetHandler}/>
                 </Controls>
@@ -81,15 +60,15 @@ export const Counter: React.FC = () => {
                 <small>Settings</small>
                 <SettingsInputs>
                     <Input label={'Min value'}
-                        value={state.minValue}
-                        className={state.minValue < 0 || state.maxValue <= state.minValue ? 'error' : ''}
+                        value={counter.minValue}
+                        className={counter.minValue < 0 || counter.maxValue <= counter.minValue ? 'error' : ''}
                         onChange={changeMinValueHandler}/>
                     <Input label={'Max value'}
-                        value={state.maxValue}
-                        className={state.minValue < 0 || state.maxValue <= state.minValue ? 'error' : ''}
+                        value={counter.maxValue}
+                        className={counter.minValue < 0 || counter.maxValue <= counter.minValue ? 'error' : ''}
                         onChange={changeMaxValueHandler}/>
                 </SettingsInputs>
-                <Button disabled={state.minValue === 0 && state.maxValue === 1 || state.minValue >= state.maxValue}
+                <Button disabled={counter.minValue === 0 && counter.maxValue === 1 || counter.minValue >= counter.maxValue}
                         icon={'check'}
                         name={'Set settings'}
                         onClick={setSettingsHandler}/>

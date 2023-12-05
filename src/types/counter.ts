@@ -1,4 +1,4 @@
-export type CounterStateType = {
+export type CounterReducerInitialType = {
     counterValue: number
     minValue: number
     maxValue: number
