@@ -1,0 +1,9 @@
+.counter {
+    display: flex;
+    flex-direction: column;
+    width: 12rem;
+    height: 12rem;
+    background-color: lightgray;
+    padding: 2rem;
+    border-radius: 1rem;
+}
