@@ -1,5 +1,6 @@
 import {useState} from "react";
 import styles from "./Counter.module.css";
+import {Button} from "../Button/Button.tsx";
 
 export const Counter = () => {
     const minValue = 0
@@ -22,9 +23,9 @@ export const Counter = () => {
                 </h1>
                 <progress max={maxValue} value={count}></progress>
             </div>
-            <div>
-                <button disabled={count === maxValue} onClick={incHandler}>Increment</button>
-                <button disabled={count === minValue} onClick={resHandler}>Reset</button>
+            <div style={{display: "flex", gap: '8px'}}>
+                <Button disabled={count === maxValue} onClick={incHandler}>Increment</Button>
+                <Button disabled={count === minValue} onClick={resHandler}>Reset</Button>
             </div>
         </div>
     );
