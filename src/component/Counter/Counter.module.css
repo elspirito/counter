@@ -4,4 +4,13 @@
     background-color: #eaebee;
     padding: 2rem;
     border-radius: 1rem;
+    gap: 1rem;
+}
+
+.progressСircle {
+    transform: rotate(-90deg);
+}
+
+.progressСircle text {
+    font-size: 64px;
 }

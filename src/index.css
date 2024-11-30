@@ -1,62 +1,15 @@
-/* minireset.css */
-
-/* Remove default margin and padding */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+:root {
+    --color-primary: hsl(210, 100%, 50%);
+    --color-error: hsl(342, 85%, 48%);
+    --color-black: hsla(0, 0%, 16%, 0.88);
 }
 
-/* Set a default font size and family */
-html {
-    font-size: 100%; /* 16px */
-    font-family: sans-serif;
-}
-
-/* Remove list styles */
-ul, ol {
-    list-style: none;
-}
-
-/* Remove text decoration from links */
-a {
-    text-decoration: none;
-    color: inherit; /* Inherit color from parent */
-}
-
-/* Set default styles for headings */
-h1, h2, h3, h4, h5, h6 {
-    font-weight: normal; /* Reset font weight */
-}
-
-/* Set default styles for images */
-img {
-    max-width: 100%; /* Responsive images */
-    height: auto; /* Maintain aspect ratio */
-}
-
-/* Set default styles for tables */
-table {
-    border-collapse: collapse; /* Remove space between table cells */
-    width: 100%; /* Full width */
-}
-
-/* Set default styles for form elements */
-input, textarea, select, button {
-    font-family: inherit; /* Inherit font from parent */
-    font-size: inherit; /* Inherit font size from parent */
-}
-
-progress {
-    width: 100%;
-}
-
-/* Add a default line height */
 body {
     line-height: 1.5; /* Improve readability */
     height: 100dvh;
 
 }
+
 #root {
     height: 100dvh;
     display: flex;
