@@ -5,6 +5,10 @@
     padding: 2rem;
     border-radius: 1rem;
     gap: 1rem;
+
+    & .error {
+        color: red;
+    }
 }
 
 .progressСircle {
