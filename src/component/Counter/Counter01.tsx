@@ -3,7 +3,7 @@ import styles from "./Counter.module.css";
 import {Button} from "../Button/Button.tsx";
 import {Display} from "../Display/Display.tsx";
 
-export const Counter = () => {
+export const Counter01 = () => {
     const minValue = 0
     const maxValue = 5
     const [count, setCount] = useState(minValue);

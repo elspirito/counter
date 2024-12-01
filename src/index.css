@@ -1,18 +1,21 @@
+@import url("https://cdn.jsdelivr.net/gh/jgthms/minireset.css@master/minireset.min.css");
+
 :root {
     --color-primary: hsl(210, 100%, 50%);
     --color-error: hsl(342, 85%, 48%);
     --color-black: hsla(0, 0%, 16%, 0.88);
+
 }
 
 body {
-    line-height: 1.5; /* Improve readability */
+    line-height: 1.5;
     height: 100dvh;
-
+    font-size: 100px;
 }
 
 #root {
     height: 100dvh;
     display: flex;
-    justify-content: center; /* Центрирование по горизонтали */
-    align-items: center; /* Центрирование по вертикали */
+    justify-content: center;
+    align-items: center;
 }
