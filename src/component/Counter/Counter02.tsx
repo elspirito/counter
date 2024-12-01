@@ -19,8 +19,10 @@ export const Counter02 = () => {
 
     return isSettings
         ? (
-            <Button onClick={() => setIsSettings(false)}>Back</Button>
-
+            <div>
+                Settings here...
+                <Button onClick={() => setIsSettings(false)}>Back</Button>
+            </div>
         )
         : (
             <div className={styles.counter}>

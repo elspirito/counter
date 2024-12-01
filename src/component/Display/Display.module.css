@@ -1,0 +1,12 @@
+.display {
+    display: flex;
+    justify-content: center;
+}
+
+.progressСircle {
+    transform: rotate(-90deg);
+}
+
+.progressСircle text {
+    font-size: 64px;
+}

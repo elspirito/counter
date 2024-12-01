@@ -10,11 +10,3 @@
         color: red;
     }
 }
-
-.progressСircle {
-    transform: rotate(-90deg);
-}
-
-.progressСircle text {
-    font-size: 64px;
-}

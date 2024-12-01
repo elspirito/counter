@@ -1,4 +1,4 @@
-import styles from "../Counter/Counter.module.css";
+import styles from "../Display/Display.module.css";
 
 type DisplayProps = {
     count: number;
@@ -13,7 +13,7 @@ export const Display = ({count, maxValue}: DisplayProps) => {
     const countColor = count === maxValue ? 'var(--color-error)' : 'var(--color-black)'
 
     return (
-        <div style={{display: "flex", justifyContent: "center"}}>
+        <div className={styles.display}>
             <svg className={styles.progressСircle} width='160px' height='160px' viewBox="0 0 160 160">
                 <circle r={radius} cx="80" cy="80" fill="transparent" stroke="#e0e0e0" strokeWidth="12px"></circle>
                 <circle r={radius} cx="80" cy="80" fill="transparent" stroke={countColor} strokeWidth="12px"
