@@ -17,12 +17,11 @@ export const Display = ({count, maxValue}: DisplayProps) => {
             <svg className={styles.progressСircle} width='160px' height='160px' viewBox="0 0 160 160">
                 <circle r={radius} cx="80" cy="80" fill="transparent" stroke="#e0e0e0" strokeWidth="12px"></circle>
                 <circle r={radius} cx="80" cy="80" fill="transparent" stroke={countColor} strokeWidth="12px"
-                        stroke-dasharray={circleLength} stroke-dashoffset={offset} strokeLinecap={"round"}></circle>
+                        strokeDasharray={circleLength} strokeDashoffset={offset} strokeLinecap={"round"}></circle>
                 <text x="62" y="140" fill={countColor}
                       style={{transform: "rotate(90deg) translate(0px, -196px)"}}>{count}
                 </text>
             </svg>
-
         </div>
     );
 };

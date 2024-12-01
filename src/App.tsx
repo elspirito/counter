@@ -18,8 +18,6 @@ export const App = () => {
 
     }, []);
 
-    console.log(version)
-
 
     const componentRender = () => {
         switch (version) {
