@@ -1,7 +1,7 @@
-.counter {
+.counterWrapper {
     display: flex;
     flex-direction: column;
-    background-color: #eaebee;
+    background-color: var(--color-gray-100);
     padding: 2rem;
     border-radius: 1rem;
     gap: 1rem;

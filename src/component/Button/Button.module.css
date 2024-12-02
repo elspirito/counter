@@ -8,6 +8,7 @@
     cursor: pointer;
     border-radius: 0.5rem;
     transition: background-color 0.25s;
+    font-size: var(--text-size-base);
 }
 .button:hover {
     background-color: #236def;

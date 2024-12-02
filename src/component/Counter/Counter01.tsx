@@ -16,7 +16,7 @@ export const Counter01 = () => {
     const resHandler = () => setCount(0)
 
     return (
-        <div className={styles.counter}>
+        <div className={styles.counterWrapper}>
             <Display count={count} maxValue={maxValue} />
             <div style={{display: "flex", gap: '8px'}}>
                 <Button disabled={count === maxValue} onClick={incHandler}>Increment</Button>

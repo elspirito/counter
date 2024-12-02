@@ -2,6 +2,7 @@ import {useState} from "react";
 import styles from "./Counter.module.css";
 import {Button} from "../Button/Button.tsx";
 import {Display} from "../Display/Display.tsx";
+import {Input} from "../Input/Input.tsx";
 
 export const Counter02 = () => {
     const minValue = 0
@@ -19,13 +20,16 @@ export const Counter02 = () => {
 
     return isSettings
         ? (
-            <div>
-                Settings here...
+            <div className={styles.counterWrapper}>
+                <label htmlFor="">
+                    <Input/>
+                </label>
+
                 <Button onClick={() => setIsSettings(false)}>Back</Button>
             </div>
         )
         : (
-            <div className={styles.counter}>
+            <div className={styles.counterWrapper}>
                 <Display count={count} maxValue={maxValue}/>
                 <div style={{display: "flex", gap: '8px'}}>
                     <Button disabled={count === maxValue} onClick={incHandler}>Increment</Button>
