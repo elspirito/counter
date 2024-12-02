@@ -17,7 +17,11 @@ export const Counter01 = () => {
 
     return (
         <div className={styles.counterWrapper}>
-            <Display count={count} maxValue={maxValue} />
+            <Display count={count} maxValue={maxValue}/>
+            <div style={{display: "flex", gap: '8px', justifyContent: 'space-between'}}>
+                <span>Min Value: {minValue}</span>
+                <span>Max Value: {maxValue}</span>
+            </div>
             <div style={{display: "flex", gap: '8px'}}>
                 <Button disabled={count === maxValue} onClick={incHandler}>Increment</Button>
                 <Button disabled={count === minValue} onClick={resHandler}>Reset</Button>
