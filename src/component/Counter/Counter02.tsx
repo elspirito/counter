@@ -21,11 +21,18 @@ export const Counter02 = () => {
     return isSettings
         ? (
             <div className={styles.counterWrapper}>
+                <h3>Settings</h3>
+
                 <label htmlFor="">
-                    <Input/>
+                    <Input type={"number"} placeholder={'0'}/>
                 </label>
 
-                <Button onClick={() => setIsSettings(false)}>Back</Button>
+                <div style={{display: "flex", gap: '8px'}}>
+                    <Button onClick={() => setIsSettings(false)}>Back</Button>
+                    <Button onClick={() => {
+                    }}>Set</Button>
+                </div>
+
             </div>
         )
         : (

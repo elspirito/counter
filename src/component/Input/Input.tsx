@@ -1,10 +1,16 @@
 import styles from './Input.module.css';
 import {InputHTMLAttributes} from "react";
+
 type InputProps = InputHTMLAttributes<HTMLInputElement>;
 
-export const Input = ({ placeholder, ...rest }: InputProps) => {
+export const Input = ({placeholder, value, ...rest}: InputProps) => {
     return (
-        <input placeholder={placeholder} className={styles.input} {...rest} />
+        <input
+            className={styles.input}
+            placeholder={placeholder}
+            value={value}
+            {...rest}
+        />
     );
 };
 
