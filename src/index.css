@@ -3,7 +3,9 @@
 :root {
     --color-primary: hsl(210, 100%, 50%);
     --color-error: hsl(342, 85%, 48%);
+
     --color-black: hsla(0, 0%, 16%, 0.88);
+    --color-white: hsl(0, 0%, 100%);
     --color-gray-100: hsl(220, 0%, 96%);
     --color-gray-200: hsl(220, 0%, 92%);
     --color-gray-300: hsl(220, 0%, 88%);
